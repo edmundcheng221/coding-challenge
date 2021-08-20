@@ -4,9 +4,6 @@ To clone repo:
 
 `git clone https://github.com/edmundcheng221/coding-challenge.git`
 
-Navigate to the taktile directory:
-
-`cd taktile`
 
 Run `fold.py`:
 
