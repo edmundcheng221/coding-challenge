@@ -10,7 +10,7 @@ class Fold:
 
     if there is a starting number specified
 
-    return starting + (a + b + c + d)
+    return ((((starting + a) + b) + c) + d)
     """
     @staticmethod
     def fold_left(operation, lst, starting=None):
@@ -18,15 +18,12 @@ class Fold:
             if len(lst) == 0:
                 print("empty list")
                 return 0
-            l = list(lst)
-            res = l[0]
-            for num,ele in enumerate(l):
-                if num == 0:
-                    pass
-                else:
-                    res = operation(res, ele)
             if starting is not None:
-                return operation(res, starting)
+                lst.insert(0, starting)
+            res = lst[0]
+            for num,ele in enumerate(lst):
+                if num+1 < len(lst):
+                    res = operation(res, lst[num+1])
             return res
         except ZeroDivisionError:
             return None
@@ -37,11 +34,11 @@ class Fold:
     operator can be +, -, *, /
     let us use + for example
     
-    return a + (b + c + d)
+    return (a + (b + (c + d)))
     
     if there is a starting number specified
     
-    return starting + (a + (b + c + d))
+    return (starting + (a + (b + (c + d))))
     """
 
     @staticmethod
@@ -50,17 +47,20 @@ class Fold:
             if len(lst) == 0:
                 print("empty list")
                 return 0
-            l = list(lst)
-            temp = l[0]
-            l.pop(0)
-            res = l[0]
-            for num,ele in enumerate(l):
-                if num+1 < len(l):
-                    res = operation(res, l[num+1])
             if starting is not None:
-                result = operation(temp, res)
-                return operation(result, starting)
-            return operation(temp, res)
+                new_lst = lst[::-1]
+                res = operation(new_lst[0],starting)
+                new_lst.pop(0)
+                for ele in new_lst:
+                    res = operation(ele,res)
+                return res
+            else:
+                new_lst = lst[::-1]
+                res = new_lst[0]
+                new_lst.pop(0)
+                for ele in new_lst:
+                    res = operation(ele,res)
+                return res
         except ZeroDivisionError:
             return None
 

@@ -1,5 +1,6 @@
 import unittest
 from fold import *
+import functools
 
 
 class TestFold(unittest.TestCase):
@@ -10,7 +11,7 @@ class TestFold(unittest.TestCase):
         self.assertEqual(Fold.fold_right(add, [2, 4, 6], 0), 12)
         self.assertEqual(Fold.fold_right(add, []), 0)
         # # Subtract
-        self.assertEqual(Fold.fold_right(subtract, [1, 2, 3, 4, 5]), 11)
+        self.assertEqual(Fold.fold_right(subtract, [1, 2, 3, 4, 5]), 3)
         self.assertEqual(Fold.fold_right(subtract, [2, 4, 6], 0), 4)
         self.assertEqual(Fold.fold_right(subtract, []), 0)
         # # Multiply
@@ -18,7 +19,7 @@ class TestFold(unittest.TestCase):
         self.assertEqual(Fold.fold_right(multiply, [2, 4, 6], 0), 0)
         self.assertEqual(Fold.fold_right(multiply, []), 0)
         # Divide
-        self.assertEqual(Fold.fold_right(divide, [1, 2, 3, 4, 5]), 1/(((2/3)/4)/5))
+        self.assertEqual(Fold.fold_right(divide, [1, 2, 3, 4, 5]), 1/(2/(3/(4/5))))
         self.assertEqual(Fold.fold_right(divide, [2, 4, 8]), 4)
         self.assertEqual(Fold.fold_right(divide, [2, 4, 8], 0), None)
 
@@ -29,7 +30,7 @@ class TestFold(unittest.TestCase):
         self.assertEqual(Fold.fold_left(add, []), 0)
         # Subtract
         self.assertEqual(Fold.fold_left(subtract, [1, 2, 3, 4, 5]), -13)
-        self.assertEqual(Fold.fold_left(subtract, [2, 4, 6], 0), -8)
+        self.assertEqual(Fold.fold_left(subtract, [2, 4, 6], 0), -12)
         self.assertEqual(Fold.fold_left(subtract, [], 0), 0)
         # Multiply
         self.assertEqual(Fold.fold_left(multiply, [1, 2, 3, 4, 5]), 120)
@@ -38,7 +39,7 @@ class TestFold(unittest.TestCase):
         # Divide
         self.assertEqual(Fold.fold_left(divide, [1, 2, 3, 4, 5]), (((1/2)/3)/4)/5)
         self.assertEqual(Fold.fold_left(divide, [2, 4, 8]) , 0.0625)
-        self.assertEqual(Fold.fold_left(divide, [2, 4, 8], 0) , None)
+        self.assertEqual(Fold.fold_left(divide, [2, 4, 8], 0) , 0)
 
 
 if __name__ == "__main__":
